@@ -26,6 +26,10 @@
 IRsend irsend;
 YunServer server;
 
+
+
+
+
 void setup() {
   // Bridge startup
   Bridge.begin();
@@ -58,29 +62,68 @@ void loop() {
 void process(YunClient client) {
   // read the text from REST calls
   String text = client.readStringUntil('\r');
+  // valor para pwr da TV samsung
+  unsigned int S_pwr[68]={4600,4350,700,1550,650,1550,650,1600,650,450,650,450,650,450,650,450,700,400,700,1550,650,1550,650,1600,650,450,650,450,650,450,700,450,650,450,650,450,650,1550,700,450,650,450,650,450,650,450,650,450,700,400,650,1600,650,450,650,1550,650,1600,650,1550,650,1550,700,1550,650,1550,650};
+  unsigned int SRC_tv[68]={4500,4400,600,1650,550,1650,550,1700,550,550,550,550,550,550,550,550,550,600,550,1650,550,1650,550,1700,550,550,550,550,550,550,550,550,550,550,550,1700,550,550,550,550,550,550,550,550,550,600,550,550,550,550,550,550,550,1650,550,1700,550,1650,550,1650,550,1700,550,1650,550,1650,550};
+  unsigned int exit_tv[68]={4500,4400,600,1650,550,1650,550,1650,550,600,550,550,550,500,600,550,550,550,550,1700,550,1650,550,1650,550,550,550,550,600,550,550,500,600,500,600,1650,550,550,550,1700,550,1650,550,550,550,1650,550,600,550,550,550,550,550,1650,550,550,550,550,600,1650,550,550,550,1650,550,1700,550}; 
   
   //Convert the string to char array
   char data[text.length()+1];
   text.toCharArray(data,text.length()+1);
   
-  if (strcmp(data, "kyPWR") == 0){
-    irsend.sendNEC(0x1FC22DD, 32); // NEC TV power code
-    Serial.println("Power");
+  if (strcmp(data, "satkPWR") == 0){
+    irsend.sendNEC(0x1FC22DD, 32); // OpenBoxs9 power code
+    Serial.println("sat Power");
     data[0]='\0';
   }
   if (strcmp(data, "curUP") == 0){
-    irsend.sendNEC(0x1FC30CF, 32); // NEC TV power code
+    irsend.sendNEC(0x1FC30CF, 32); // OpenBoxs9 cursor UP
     Serial.println("cursor Up");
     data[0]='\0';
   }
     if (strcmp(data, "curDN") == 0){
-    irsend.sendNEC(0x1FC708F, 32); // NEC TV power code
+    irsend.sendNEC(0x1FC708F, 32); // OpenBoxs9 cursor Down
     Serial.println("cursor Down");
     data[0]='\0';
   }
   if (strcmp(data, "curOK") == 0){
-    irsend.sendNEC(0x1FC8877, 32); // NEC TV power code
+    irsend.sendNEC(0x1FC8877, 32); // OpenBoxs9 cursor OK
     Serial.println("cursor Ok");
+    data[0]='\0';
+  }
+  delay(40);
+  if (strcmp(data, "tvkPWR") == 0){
+    irsend.sendRaw(S_pwr,68,38); // Samsung TV power code
+    Serial.println("TV POWER ON or OFF");
+    data[0]='\0';
+  }
+  delay(40);
+  if (strcmp(data, "curSRC") == 0){
+    irsend.sendRaw(SRC_tv,68,38); // Samsung TV source button
+    Serial.println("TV SOURCE Ok");
+    data[0]='\0';
+  }
+  delay(40);
+  if (strcmp(data, "curEXIT") == 0){
+    irsend.sendRaw(exit_tv,68,38); // Samsung TV exit button
+    Serial.println("TV Exit Ok");
+    data[0]='\0';
+  }
+  delay(40);
+  if (strcmp(data, "logiVolUP") == 0){
+    irsend.sendNEC(0x10EF58A7, 32); // Logitech 5.1 volume UP code
+    Serial.println("Volume UP");
+    data[0]='\0';
+  }
+  if (strcmp(data, "logiVolDN") == 0){
+    irsend.sendNEC(0x10EF708F, 32); // Logitech 5.1 volume UP code
+    Serial.println("Volume Down");
+    data[0]='\0';
+  }
+  delay(40);
+  if (strcmp(data, "logiVolMute") == 0){
+    irsend.sendNEC(0x10EF6897, 32); // Logitech 5.1 volume Mute code
+    Serial.println("Volume Mute");
     data[0]='\0';
   }
   delay(40);
