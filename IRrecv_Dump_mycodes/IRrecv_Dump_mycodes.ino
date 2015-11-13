@@ -22,7 +22,8 @@ void setup()
 
 void loop() {
   if (irrecv.decode(&results)) {
-//    Serial.println(results.value, HEX);
+    Serial.println("Codigo: ");
+    Serial.println(results.value, HEX);
     switch (results.value) {
       case 0x1FC708F:
         Serial.println("curso baixo");

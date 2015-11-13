@@ -27,9 +27,6 @@ IRsend irsend;
 YunServer server;
 
 
-
-
-
 void setup() {
   // Bridge startup
   Bridge.begin();
@@ -56,7 +53,7 @@ void loop() {
     client.stop();
   }
 
-  delay(50); // Poll every 50ms
+  delay(100); // Poll every 100ms
 }
 
 void process(YunClient client) {
@@ -74,6 +71,11 @@ void process(YunClient client) {
   if (strcmp(data, "satkPWR") == 0){
     irsend.sendNEC(0x1FC22DD, 32); // OpenBoxs9 power code
     Serial.println("sat Power");
+    data[0]='\0';
+  }
+  if (strcmp(data, "Recall") == 0){
+    irsend.sendNEC(0x1FC00FF, 32); // OpenBoxs9 recall channel
+    Serial.println("Air is On");
     data[0]='\0';
   }
   if (strcmp(data, "curUP") == 0){
@@ -127,6 +129,91 @@ void process(YunClient client) {
     data[0]='\0';
   }
   delay(40);
+  if (strcmp(data, "teste") == 0){
+    irsend.sendNEC(0x1FC8877, 32); // OpenBoxs9 cursor OK
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC708F, 32); // OpenBoxs9 cursor curDN
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC708F, 32); // OpenBoxs9 cursor curDN
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC708F, 32); // OpenBoxs9 cursor curDN
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC8877, 32); // OpenBoxs9 cursor OK
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC8877, 32); // OpenBoxs9 cursor OK
+    Serial.println("cursor OK down down ok ok");
+    data[0]='\0';
+  }
+  delay(40);
+  if (strcmp(data, "btvhd1") == 0){
+    irsend.sendNEC(0x1FC6897, 32); // OpenBoxs9 cursor 1
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FCE817, 32); // OpenBoxs9 cursor 2
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC6897, 32); // OpenBoxs9 cursor 1
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC8877, 32); // OpenBoxs9 cursor OK
+    data[0]='\0';
+    delay(200);
+    Serial.println("Canal 121 + ok");
+    data[0]='\0';
+  }
+  delay(40);
+  if (strcmp(data, "sportvhd1") == 0){
+    irsend.sendNEC(0x1FC6897, 32); // OpenBoxs9 cursor 1
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC6897, 32); // OpenBoxs9 cursor 1
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC6897, 32); // OpenBoxs9 cursor 1
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC8877, 32); // OpenBoxs9 cursor OK
+    data[0]='\0';
+    delay(200);
+    Serial.println("Canal 111 + ok");
+    data[0]='\0';
+  }
+  delay(40);
+  if (strcmp(data, "sportvhd2") == 0){
+    irsend.sendNEC(0x1FC6897, 32); // OpenBoxs9 cursor 1
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC6897, 32); // OpenBoxs9 cursor 1
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FCE817, 32); // OpenBoxs9 cursor 2
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC8877, 32); // OpenBoxs9 cursor OK
+    data[0]='\0';
+    delay(200);
+    Serial.println("Canal 112 + ok");
+    data[0]='\0';
+  }
+  delay(40);
+  if (strcmp(data, "sportingtv") == 0){
+    irsend.sendNEC(0x1FCD827, 32); // OpenBoxs9 cursor 6
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC38C7, 32); // OpenBoxs9 cursor 7
+    data[0]='\0';
+    delay(200);
+    irsend.sendNEC(0x1FC8877, 32); // OpenBoxs9 cursor OK
+    data[0]='\0';
+    Serial.println("Canal 67 + ok");
+    data[0]='\0';
+  }
+  delay(40);  
 }
 //codigos
 //
@@ -138,3 +225,15 @@ void process(YunClient client) {
 //curOK    1FC8877
 //key1    1FC6897
 //key2    1FCE817
+
+// Ar condicionado ligar NEC: 5676CA00
+// Ar condicionado ligar NEC: 5606CA00
+
+
+
+
+
+
+
+
+
