@@ -18,8 +18,17 @@ Remote control your TvBox from Arduino Yun via  REST
 0x10EF6897,// Logitech 5.1 volume Mute code<br>
 0x1FC8877, // OpenBoxs9 cursor OK<br>
 0x1FC708F, // OpenBoxs9 cursor curDN<br>
-0x1FC8877, // OpenBoxs9 cursor OK<br>
 0x1FC6897, // OpenBoxs9 cursor 1<br>
 0x1FCE817, // OpenBoxs9 cursor 2<br>
 0x1FCD827, // OpenBoxs9 cursor 6<br>
 0x1FC38C7, // OpenBoxs9 cursor 7
+
+To use de codes just use the API 
+
+http://<YUN IP>/arduino/curOK (it will send the IR code 0x1FC8877)
+
+
+![alt tag](https://github.com/digas/YunRemoteIR_REST/blob/master/images/IMG_1991.jpg)
+<br>
+![alt tag](https://github.com/digas/YunRemoteIR_REST/blob/master/images/IMG_1992.jpg)
+<br>
